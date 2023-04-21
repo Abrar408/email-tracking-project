@@ -12,12 +12,20 @@ InboxSDK.load(2, "sdk_abrar_7d392519c2").then((sdk) => {
         event.composeView.insertTextIntoBodyAtCursor("Hello World!");
       },
     });
+    let flag = true;
     composeView.on('presending',function(event) {
       console.log('presending');
-      event.cancel();
+      if(flag){
+        event.cancel();
+      } else {
+        composeView.close()
+      }
+      
     })
     composeView.on('sendCanceled',function(){
       console.log('sendCanceled')
+      flag = false;
+      composeView.send()
     })
     // composeView.on('sending',function(event) {
     //   console.log('sending')
